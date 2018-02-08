@@ -3,6 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <properties resource="config.properties">
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+    </properties>
+
     <typeAliases>
         <package name="cn.dubby.study.mybatis.basic.xml.entity"/>
     </typeAliases>
@@ -11,10 +17,11 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis_study?useUnicode=true&amp;characterEncoding=UTF-8&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
-                <property name="username" value="test"/>
-                <property name="password" value="123456"/>
+                <!--since MyBatis 3.4.2 如果driver没有找到，会使用冒号后的值作为默认值。此功能默认不开启，开启需指定org.apache.ibatis.parsing.PropertyParser.enable-default-value-->
+                <property name="driver" value="${driver:com.mysql.cj.jdbc.Driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
