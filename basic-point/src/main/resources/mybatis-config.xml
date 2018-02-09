@@ -4,21 +4,54 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <!--属性，下面的配置可以引用这里的属性-->
     <properties resource="config.properties">
+        <!--默认不开启-->
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+        <!--默认就是:-->
+        <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="#|#"/>
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
     </properties>
 
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!--数据库里下划线自动匹配成Java中驼峰命名的属性-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+    </settings>
+
     <typeAliases>
+        <!--可以单独指定别名-->
+        <typeAlias type="cn.dubby.study.mybatis.basic.xml.entity.Blog" alias="Blog"/>
+        <!--也可以直接指定包下所有类的别名，此时还可以使用@Alias("blog")来修改他的别名-->
         <package name="cn.dubby.study.mybatis.basic.xml.entity"/>
     </typeAliases>
+
+    <typeHandlers>
+        <!--可以单独指定别名-->
+        <typeHandler handler="cn.dubby.study.mybatis.basic.xml.handler.MobilePhoneHandler"/>
+        <!--也可以直接指定包下所有类的别名-->
+        <package name="cn.dubby.study.mybatis.basic.xml.handler"/>
+    </typeHandlers>
 
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <!--since MyBatis 3.4.2 如果driver没有找到，会使用冒号后的值作为默认值。此功能默认不开启，开启需指定org.apache.ibatis.parsing.PropertyParser.enable-default-value-->
-                <property name="driver" value="${driver:com.mysql.cj.jdbc.Driver}"/>
+                <property name="driver" value="${driver#|#com.mysql.cj.jdbc.Driver}"/>
                 <property name="url" value="${url}"/>
                 <property name="username" value="${username}"/>
                 <property name="password" value="${password}"/>
@@ -28,5 +61,6 @@
 
     <mappers>
         <mapper resource="cn/dubby/study/mybatis/basic/xml/mapper/BlogMapper.xml"/>
+        <mapper resource="cn/dubby/study/mybatis/basic/xml/mapper/UserMapper.xml"/>
     </mappers>
 </configuration>

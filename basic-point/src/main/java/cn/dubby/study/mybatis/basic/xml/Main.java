@@ -1,7 +1,9 @@
 package cn.dubby.study.mybatis.basic.xml;
 
 import cn.dubby.study.mybatis.basic.xml.entity.Blog;
+import cn.dubby.study.mybatis.basic.xml.entity.User;
 import cn.dubby.study.mybatis.basic.xml.mapper.BlogMapper;
+import cn.dubby.study.mybatis.basic.xml.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -25,6 +27,13 @@ public class Main {
             BlogMapper mapper = session.getMapper(BlogMapper.class);
             Blog blog2 = mapper.selectBlog(1);
             System.out.println(blog2);
+
+            UserMapper userMapper = session.getMapper(UserMapper.class);
+            User user = userMapper.selectUser(1);
+            System.out.println(user);
+
+            user = userMapper.selectUser(2);
+            System.out.println(user);
         } finally {
             session.close();
         }
