@@ -84,6 +84,7 @@
     <mappers>
         <mapper resource="cn/dubby/mybatis/configuration/mapper/BlogMapper.xml"/>
         <mapper resource="cn/dubby/mybatis/configuration/mapper/UserMapper.xml"/>
-        <mapper resource="cn/dubby/mybatis/configuration/mapper/CategoryMapper.xml"/>
+        <!--<mapper resource="cn/dubby/mybatis/configuration/mapper/CategoryMapper.xml"/>-->
+        <mapper class="cn.dubby.mybatis.configuration.mapper.CategoryMapper"/>
     </mappers>
 </configuration>

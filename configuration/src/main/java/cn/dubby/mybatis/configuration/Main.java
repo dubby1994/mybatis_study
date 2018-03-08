@@ -21,7 +21,7 @@ public class Main {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-        testCategory(sqlSessionFactory);
+        testBlog(sqlSessionFactory);
     }
 
     private static void testCategory(SqlSessionFactory sqlSessionFactory) throws IOException {
