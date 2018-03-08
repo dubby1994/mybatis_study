@@ -1,8 +1,10 @@
 package cn.dubby.mybatis.configuration;
 
 import cn.dubby.mybatis.configuration.entity.Blog;
+import cn.dubby.mybatis.configuration.entity.Category;
 import cn.dubby.mybatis.configuration.entity.User;
 import cn.dubby.mybatis.configuration.mapper.BlogMapper;
+import cn.dubby.mybatis.configuration.mapper.CategoryMapper;
 import cn.dubby.mybatis.configuration.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -19,7 +21,21 @@ public class Main {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-        testBlog(sqlSessionFactory);
+        testCategory(sqlSessionFactory);
+    }
+
+    private static void testCategory(SqlSessionFactory sqlSessionFactory) throws IOException {
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+            Category category = categoryMapper.selectCategory(1);
+            System.out.println(category);
+
+            category = categoryMapper.selectCategory(2);
+            System.out.println(category);
+        } finally {
+            session.close();
+        }
     }
 
     private static void testBlog(SqlSessionFactory sqlSessionFactory) throws IOException {

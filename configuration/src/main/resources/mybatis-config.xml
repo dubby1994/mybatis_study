@@ -40,6 +40,8 @@
     </typeAliases>
 
     <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.dubby.mybatis.configuration.enums.CategoryEnum"/>
+
         <!--可以单独指定别名-->
         <typeHandler handler="cn.dubby.mybatis.configuration.handler.MobilePhoneHandler"/>
         <!--也可以直接指定包下所有类的别名-->
@@ -82,5 +84,6 @@
     <mappers>
         <mapper resource="cn/dubby/mybatis/configuration/mapper/BlogMapper.xml"/>
         <mapper resource="cn/dubby/mybatis/configuration/mapper/UserMapper.xml"/>
+        <mapper resource="cn/dubby/mybatis/configuration/mapper/CategoryMapper.xml"/>
     </mappers>
 </configuration>
